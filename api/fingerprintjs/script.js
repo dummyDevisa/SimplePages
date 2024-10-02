@@ -1,5 +1,5 @@
 document.getElementById('get-fingerprint').addEventListener('click', () => {
-    const fpPromise = import('https://openfpcdn.io/fingerprintjs/v4')
+    const fpPromise = import('https://openfpcdn.io/fingerprintjs/v3')
         .then(FingerprintJS => FingerprintJS.load());
 
     fpPromise
