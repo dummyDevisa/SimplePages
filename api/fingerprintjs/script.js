@@ -8,16 +8,33 @@
         const result = await fp.get();
         const visitorId = result.visitorId;
 
-        // Cria o JSON e imprime no console
-        const jsonResponse = JSON.stringify({ visitorId: visitorId });
-        console.log(jsonResponse);
+        // Cria um objeto JSON
+        const jsonData = { visitorId: visitorId };
+        const jsonString = JSON.stringify(jsonData, null, 2); // Formata o JSON
 
-        // Opcional: para retornar como resposta em uma página, você poderia usar algo como:
-        document.body.innerText = jsonResponse; // Exibe o JSON na página
+        // Cria um Blob com os dados JSON
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+
+        // Cria um link temporário para o download
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'fingerprint.json'; // Nome do arquivo a ser baixado
+        document.body.appendChild(a);
+        a.click(); // Inicia o download
+        document.body.removeChild(a); // Remove o link após o download
+        URL.revokeObjectURL(url); // Libera o URL criado
     } catch (err) {
         console.error(err);
         const errorResponse = JSON.stringify({ error: err.message });
-        console.log(errorResponse);
-        document.body.innerText = errorResponse; // Exibe o erro na página
+        const blob = new Blob([errorResponse], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'error.json'; // Nome do arquivo de erro a ser baixado
+        document.body.appendChild(a);
+        a.click(); // Inicia o download do erro
+        document.body.removeChild(a); // Remove o link após o download
+        URL.revokeObjectURL(url); // Libera o URL criado
     }
 })();
