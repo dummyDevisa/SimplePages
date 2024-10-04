@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@clickwithclark/broprint.js@latest/lib/UMD/index.js"></script>
+    <script>
+      fingerprint
+        .getCurrentBrowserFingerPrint()
+        .then((identity) => {
+          const fingerprintData = { fingerprint: identity };
+          const jsonData = JSON.stringify(fingerprintData);
+          
+          // Criando um link temporário para download do arquivo JSON
+          const blob = new Blob([jsonData], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "fingerprint.json";  // Nome do arquivo baixado
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);  // Remover o link após o download
+        });
+    </script>
+    <title>FingerPrint</title>
+  </head>
+
+  <body></body>
+</html>
