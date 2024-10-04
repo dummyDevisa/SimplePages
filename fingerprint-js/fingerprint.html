@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fingerprint</title>
+    <script src="https://cdn.jsdelivr.net/npm/clientjs@0.1.11/dist/client.min.js"></script>
+    <script>
+        window.onload = function() {
+            // Gera o fingerprint usando ClientJS quando a página carrega
+            var client = new ClientJS();
+            var fingerprint = client.getFingerprint();
+            
+            // Exibe o resultado no corpo da página como JSON
+            document.body.innerHTML = JSON.stringify({ fingerprint: fingerprint });
+        };
+    </script>
+</head>
+<body>
+    <p>Carregando fingerprint...</p>
+</body>
+</html>
